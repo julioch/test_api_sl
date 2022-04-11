@@ -1,0 +1,164 @@
+service: test-api-sl
+
+custom:
+  secrets: ${file(env.json)}
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-east-1
+  timeout: 30
+  stage: ${self:custom.secrets.NODE_ENV}
+  environment: 
+    NODE_ENV: ${self:custom.secrets.NODE_ENV}
+    DB_NAME: ${self:custom.secrets.DB_NAME}
+    DB_USER: ${self:custom.secrets.DB_USER}
+    DB_PASSWORD: ${self:custom.secrets.DB_PASSWORD}
+    DB_HOST: ${self:custom.secrets.DB_HOST}
+    DB_PORT: ${self:custom.secrets.DB_PORT}
+    HOST: ${self:custom.secrets.HOST}
+
+functions:
+  healthCheck:
+    handler: handlers/handler.healthCheck
+    events:
+      - http:
+          path: /
+          method: get
+          cors: true
+  getAll:
+    handler: handlers/handler.getAll
+    events:
+     - http:
+         path: api/
+         method: get
+         cors: true
+  createPersona:
+    handler: handlers/persona.create
+    events:
+      - http:
+          path: api/personas
+          method: post
+          cors: true
+  getOnePersona:
+    handler: handlers/persona.getOne
+    events:
+      - http:
+          path: api/personas/{id}
+          method: get
+          cors: true
+  getAllPersona:
+    handler: handlers/persona.getAll
+    events:
+      - http:
+          path: api/personas
+          method: get
+          cors: true
+  createPelicula:
+    handler: handlers/pelicula.create
+    events:
+      - http:
+          path: api/peliculas
+          method: post
+          cors: true
+  getOnePelicula:
+    handler: handlers/pelicula.getOne
+    events:
+      - http:
+          path: api/peliculas/{id}
+          method: get
+          cors: true
+  getAllPelicula:
+    handler: handlers/pelicula.getAll
+    events:
+      - http:
+          path: api/peliculas
+          method: get
+          cors: true
+  createNave:
+    handler: handlers/nave.create
+    events:
+      - http:
+          path: api/naves
+          method: post
+          cors: true
+  getOneNave:
+    handler: handlers/nave.getOne
+    events:
+      - http:
+          path: api/naves/{id}
+          method: get
+          cors: true
+  getAllNave:
+    handler: handlers/nave.getAll
+    events:
+      - http:
+          path: api/naves
+          method: get
+          cors: true
+  createEspecie:
+    handler: handlers/especie.create
+    events:
+      - http:
+          path: api/especies
+          method: post
+          cors: true
+  getOneEspecie:
+    handler: handlers/especie.getOne
+    events:
+      - http:
+          path: api/especies/{id}
+          method: get
+          cors: true
+  getAllEspecie:
+    handler: handlers/especie.getAll
+    events:
+      - http:
+          path: api/especies
+          method: get
+          cors: true
+  createPlaneta:
+    handler: handlers/planeta.create
+    events:
+      - http:
+          path: api/planetas
+          method: post
+          cors: true
+  getOnePlaneta:
+    handler: handlers/planeta.getOne
+    events:
+      - http:
+          path: api/planetas/{id}
+          method: get
+          cors: true
+  getAllPlaneta:
+    handler: handlers/planeta.getAll
+    events:
+      - http:
+          path: api/planetas
+          method: get
+          cors: true
+  createVehiculo:
+    handler: handlers/vehiculo.create
+    events:
+      - http:
+          path: api/vehiculos
+          method: post
+          cors: true
+  getOneVehiculo:
+    handler: handlers/vehiculo.getOne
+    events:
+      - http:
+          path: api/vehiculos/{id}
+          method: get
+          cors: true
+  getAllVehiculo:
+    handler: handlers/vehiculo.getAll
+    events:
+      - http:
+          path: api/vehiculos
+          method: get
+          cors: true
+
+plugins:
+  - serverless-offline
