@@ -9,7 +9,7 @@ cd test_api_sl
 npm i
 ```
 
-Tener en cuenta el archivo env.json para cambiar los datos por una base de datos mysql en planetscale o localhost. Teniendo los datos modificados, se puede lanzar la aplicacion.
+Tener en cuenta el archivo env.json para cambiar los datos por una base de datos mysql en planetscale o localhost. Teniendo los datos modificados, se puede lanzar la aplicacion. Tanto usando el servicio de planetscale o localhost, se debera crear la BD al inicio (testdb), ya que al uso Sequelize y solo crea las tablas.
 
 ```sh
 serverless offline start
@@ -60,4 +60,12 @@ JSON
 	"naves": "['https://api.com/api/starships/12/', 'https://api.com/api/starships/22/']",
 	"url": "https://api.com/api/people/1/"
 }
+```
+
+Unit test:
+
+Para esta prueba he creado 3 pruebas. Solo ejecutar el siguiente comando una vez la API este ejecutada
+
+```sh
+npm run test
 ```
